@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Citrus Labor History of Orange, California</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+- { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+background: #1a1408;
+overflow: hidden;
+width: 100vw;
+height: 100vh;
+font-family: ‘Cormorant Garamond’, serif;
+}
+
+#scene-container {
+position: fixed;
+top: 0; left: 0;
+width: 100%; height: 100%;
+z-index: 1;
+}
+
+/* Warm golden overlay */
+#overlay {
+position: fixed;
+top: 0; left: 0;
+width: 100%; height: 100%;
+z-index: 2;
+pointer-events: none;
+background: radial-gradient(ellipse at 50% 30%, transparent 0%, rgba(20, 16, 8, 0.3) 60%, rgba(20, 16, 8, 0.7) 100%);
+}
+
+/* Film grain */
+#grain {
+position: fixed;
+top: -50%; left: -50%;
+width: 200%; height: 200%;
+z-index: 3;
+pointer-events: none;
+opacity: 0.06;
+background-image: url(“data:image/svg+xml,%3Csvg viewBox=‘0 0 256 256’ xmlns=‘http://www.w3.org/2000/svg’%3E%3Cfilter id=‘noise’%3E%3CfeTurbulence type=‘fractalNoise’ baseFrequency=‘0.9’ numOctaves=‘4’ stitchTiles=‘stitch’/%3E%3C/filter%3E%3Crect width=‘100%25’ height=‘100%25’ filter=‘url(%23noise)’/%3E%3C/svg%3E”);
+animation: grainShift 0.5s steps(1) infinite;
+}
+
+@keyframes grainShift {
+0% { transform: translate(0, 0); }
+25% { transform: translate(-2%, -3%); }
+50% { transform: translate(3%, 1%); }
+75% { transform: translate(-1%, 4%); }
+100% { transform: translate(2%, -2%); }
+}
+
+/* Title content */
+#title-container {
+position: fixed;
+top: 0; left: 0;
+width: 100%; height: 100%;
+z-index: 10;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+pointer-events: none;
+}
+
+.title-line {
+color: #f4e8d0;
+text-align: center;
+opacity: 0;
+transform: translateY(30px);
+transition: opacity 2s ease, transform 2s ease;
+text-shadow: 0 2px 40px rgba(0,0,0,0.6);
+}
+
+.title-line.visible {
+opacity: 1;
+transform: translateY(0);
+}
+
+.title-main {
+font-size: clamp(28px, 5vw, 64px);
+font-weight: 300;
+letter-spacing: 0.08em;
+line-height: 1.2;
+margin-bottom: 8px;
+}
+
+.title-main em {
+font-style: italic;
+font-weight: 400;
+}
+
+.title-place {
+font-size: clamp(22px, 3.5vw, 48px);
+font-weight: 300;
+letter-spacing: 0.08em;
+line-height: 1.2;
+margin-bottom: 32px;
+}
+
+.title-divider {
+width: clamp(40px, 8vw, 120px);
+height: 1px;
+background: linear-gradient(90deg, transparent, #c4a35a, transparent);
+margin: 0 auto 28px;
+opacity: 0;
+transform: scaleX(0);
+transition: opacity 2s ease 0.5s, transform 2s ease 0.5s;
+}
+
+.title-divider.visible {
+opacity: 1;
+transform: scaleX(1);
+}
+
+.title-sub {
+font-family: ‘Libre Baskerville’, serif;
+font-size: clamp(12px, 1.6vw, 20px);
+font-weight: 400;
+letter-spacing: 0.25em;
+text-transform: uppercase;
+color: #c4a35a;
+margin-bottom: 48px;
+}
+
+.title-credit {
+font-family: ‘Libre Baskerville’, serif;
+font-size: clamp(9px, 1.1vw, 13px);
+font-weight: 400;
+letter-spacing: 0.18em;
+text-transform: uppercase;
+color: rgba(196, 163, 90, 0.5);
+position: fixed;
+bottom: clamp(20px, 4vh, 48px);
+left: 50%;
+transform: translateX(-50%);
+}
+
+/* Scroll indicator */
+.scroll-hint {
+position: fixed;
+bottom: clamp(50px, 8vh, 90px);
+left: 50%;
+transform: translateX(-50%);
+opacity: 0;
+transition: opacity 2s ease;
+z-index: 10;
+pointer-events: none;
+}
+
+.scroll-hint.visible { opacity: 1; }
+
+.scroll-hint span {
+display: block;
+width: 1px;
+height: 40px;
+background: linear-gradient(180deg, #c4a35a, transparent);
+margin: 0 auto;
+animation: scrollPulse 2s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+0%, 100% { opacity: 0.3; transform: scaleY(0.6); }
+50% { opacity: 0.8; transform: scaleY(1); }
+}
+
+/* Vignette bottom */
+#vignette-bottom {
+position: fixed;
+bottom: 0; left: 0;
+width: 100%; height: 30%;
+z-index: 4;
+pointer-events: none;
+background: linear-gradient(0deg, rgba(20, 16, 8, 0.8) 0%, transparent 100%);
+}
+
+/* Vignette top */
+#vignette-top {
+position: fixed;
+top: 0; left: 0;
+width: 100%; height: 20%;
+z-index: 4;
+pointer-events: none;
+background: linear-gradient(180deg, rgba(20, 16, 8, 0.5) 0%, transparent 100%);
+}
+</style>
+
+</head>
+<body>
+
+<canvas id="scene-container"></canvas>
+
+<div id="overlay"></div>
+<div id="grain"></div>
+<div id="vignette-bottom"></div>
+<div id="vignette-top"></div>
+
+<div id="title-container">
+  <div class="title-line title-main" id="t1">A Citrus Labor History</div>
+  <div class="title-line title-place" id="t2">of <em>Orange, California</em></div>
+  <div class="title-divider" id="t3"></div>
+  <div class="title-line title-sub" id="t4">A Self-Guided Walking Tour</div>
+  <div class="title-line title-credit" id="t5">Timea Steingart &middot; Chapman University</div>
+</div>
+
+<div class="scroll-hint" id="scrollHint"><span></span></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<script>
+(function() {
+  // Scene setup
+  const canvas = document.getElementById('scene-container');
+  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 0.9;
+
+  const scene = new THREE.Scene();
+  scene.background = new THREE.Color(0x1a1408);
+  scene.fog = new THREE.FogExp2(0x1a1408, 0.018);
+
+  const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 200);
+  camera.position.set(0, 4, 22);
+  camera.lookAt(0, 3, 0);
+
+  // Lighting - warm golden hour
+  const ambientLight = new THREE.AmbientLight(0x2a1f0a, 0.4);
+  scene.add(ambientLight);
+
+  const sunLight = new THREE.DirectionalLight(0xffd090, 1.8);
+  sunLight.position.set(15, 20, 10);
+  sunLight.castShadow = false;
+  scene.add(sunLight);
+
+  const warmFill = new THREE.DirectionalLight(0xff8844, 0.4);
+  warmFill.position.set(-10, 5, -5);
+  scene.add(warmFill);
+
+  const rimLight = new THREE.DirectionalLight(0xffeedd, 0.3);
+  rimLight.position.set(0, 3, 20);
+  scene.add(rimLight);
+
+  // Ground plane
+  const groundGeo = new THREE.PlaneGeometry(200, 200);
+  const groundMat = new THREE.MeshLambertMaterial({ color: 0x2d2210 });
+  const ground = new THREE.Mesh(groundGeo, groundMat);
+  ground.rotation.x = -Math.PI / 2;
+  ground.position.y = 0;
+  scene.add(ground);
+
+  // Dirt rows
+  for (let i = -6; i <= 6; i++) {
+    const rowGeo = new THREE.PlaneGeometry(100, 0.6);
+    const rowMat = new THREE.MeshLambertMaterial({ color: 0x3a2e18 });
+    const row = new THREE.Mesh(rowGeo, rowMat);
+    row.rotation.x = -Math.PI / 2;
+    row.position.set(0, 0.01, i * 5);
+    scene.add(row);
+  }
+
+  // Create orange tree
+  function createTree(x, z, scale) {
+    const group = new THREE.Group();
+
+    // Trunk
+    const trunkGeo = new THREE.CylinderGeometry(0.12 * scale, 0.18 * scale, 2.5 * scale, 8);
+    const trunkMat = new THREE.MeshLambertMaterial({ color: 0x4a3520 });
+    const trunk = new THREE.Mesh(trunkGeo, trunkMat);
+    trunk.position.y = 1.25 * scale;
+    group.add(trunk);
+
+    // Canopy - multiple spheres for organic shape
+    const canopyMat = new THREE.MeshLambertMaterial({ color: 0x1a3a12 });
+    const canopyPositions = [
+      [0, 3.2, 0, 1.6],
+      [0.7, 3.5, 0.3, 1.1],
+      [-0.5, 3.0, -0.4, 1.2],
+      [0.3, 3.8, -0.5, 0.9],
+      [-0.6, 3.4, 0.5, 1.0],
+      [0, 2.6, 0, 1.3],
+    ];
+
+    canopyPositions.forEach(([cx, cy, cz, cr]) => {
+      const geo = new THREE.SphereGeometry(cr * scale, 12, 10);
+      const mesh = new THREE.Mesh(geo, canopyMat);
+      mesh.position.set(cx * scale, cy * scale, cz * scale);
+      group.add(mesh);
+    });
+
+    // Darker inner leaves for depth
+    const darkLeafMat = new THREE.MeshLambertMaterial({ color: 0x0f2a0a });
+    const innerGeo = new THREE.SphereGeometry(1.1 * scale, 8, 8);
+    const innerMesh = new THREE.Mesh(innerGeo, darkLeafMat);
+    innerMesh.position.set(0, 3.0 * scale, 0);
+    group.add(innerMesh);
+
+    // Oranges
+    const orangeMat = new THREE.MeshLambertMaterial({ color: 0xe8871e });
+    const orangeHighlight = new THREE.MeshLambertMaterial({ color: 0xf09928 });
+    const orangeCount = Math.floor(12 + Math.random() * 10);
+    for (let i = 0; i < orangeCount; i++) {
+      const size = (0.14 + Math.random() * 0.08) * scale;
+      const oGeo = new THREE.SphereGeometry(size, 10, 10);
+      const mat = Math.random() > 0.3 ? orangeMat : orangeHighlight;
+      const orange = new THREE.Mesh(oGeo, mat);
+      const angle = Math.random() * Math.PI * 2;
+      const radius = (0.5 + Math.random() * 1.1) * scale;
+      const height = (2.2 + Math.random() * 1.8) * scale;
+      orange.position.set(
+        Math.cos(angle) * radius,
+        height,
+        Math.sin(angle) * radius
+      );
+      group.add(orange);
+    }
+
+    group.position.set(x, 0, z);
+
+    // Gentle sway
+    group.userData = {
+      swaySpeed: 0.3 + Math.random() * 0.4,
+      swayAmount: 0.003 + Math.random() * 0.004,
+      swayOffset: Math.random() * Math.PI * 2
+    };
+
+    return group;
+  }
+
+  // Plant grove - rows of trees receding into distance
+  const trees = [];
+  const rowSpacing = 5;
+  const treeSpacing = 4.5;
+
+  for (let row = -3; row <= 3; row++) {
+    for (let col = -2; col <= 8; col++) {
+      // Leave a clearing in the center for title visibility
+      const x = row * rowSpacing + (Math.random() - 0.5) * 1.2;
+      const z = -col * treeSpacing + (Math.random() - 0.5) * 1.0;
+
+      // Skip trees too close to center of view
+      if (Math.abs(x) < 3.5 && col >= 0 && col <= 3) continue;
+
+      const scale = 0.85 + Math.random() * 0.35;
+      const tree = createTree(x, z, scale);
+      scene.add(tree);
+      trees.push(tree);
+    }
+  }
+
+  // Fallen oranges on ground
+  const fallenOrangeMat = new THREE.MeshLambertMaterial({ color: 0xcc7015 });
+  for (let i = 0; i < 40; i++) {
+    const geo = new THREE.SphereGeometry(0.12 + Math.random() * 0.07, 8, 8);
+    const orange = new THREE.Mesh(geo, fallenOrangeMat);
+    orange.position.set(
+      (Math.random() - 0.5) * 40,
+      0.06,
+      (Math.random() - 0.5) * 30
+    );
+    scene.add(orange);
+  }
+
+  // Floating dust / pollen particles
+  const particleCount = 120;
+  const particleGeo = new THREE.BufferGeometry();
+  const positions = new Float32Array(particleCount * 3);
+  for (let i = 0; i < particleCount; i++) {
+    positions[i * 3] = (Math.random() - 0.5) * 40;
+    positions[i * 3 + 1] = 1 + Math.random() * 8;
+    positions[i * 3 + 2] = (Math.random() - 0.5) * 30;
+  }
+  particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  const particleMat = new THREE.PointsMaterial({
+    color: 0xffd080,
+    size: 0.06,
+    transparent: true,
+    opacity: 0.4
+  });
+  const particles = new THREE.Points(particleGeo, particleMat);
+  scene.add(particles);
+
+  // Animate
+  let time = 0;
+  let titleShown = false;
+
+  function animate() {
+    requestAnimationFrame(animate);
+    time += 0.008;
+
+    // Slow camera drift forward through the grove
+    camera.position.z = 22 - time * 0.3;
+    camera.position.x = Math.sin(time * 0.15) * 0.8;
+    camera.position.y = 4 + Math.sin(time * 0.1) * 0.2;
+    camera.lookAt(Math.sin(time * 0.08) * 0.3, 3, camera.position.z - 15);
+
+    // Tree sway
+    trees.forEach(tree => {
+      const d = tree.userData;
+      tree.rotation.z = Math.sin(time * d.swaySpeed + d.swayOffset) * d.swayAmount;
+      tree.rotation.x = Math.sin(time * d.swaySpeed * 0.7 + d.swayOffset + 1) * d.swayAmount * 0.5;
+    });
+
+    // Particle drift
+    const posArr = particles.geometry.attributes.position.array;
+    for (let i = 0; i < particleCount; i++) {
+      posArr[i * 3] += Math.sin(time + i) * 0.003;
+      posArr[i * 3 + 1] += Math.sin(time * 0.5 + i * 0.3) * 0.002;
+      posArr[i * 3 + 2] += Math.cos(time * 0.7 + i * 0.5) * 0.002;
+    }
+    particles.geometry.attributes.position.needsUpdate = true;
+
+    // Reveal title after 1.5s
+    if (time > 0.3 && !titleShown) {
+      titleShown = true;
+      setTimeout(() => document.getElementById('t1').classList.add('visible'), 0);
+      setTimeout(() => document.getElementById('t2').classList.add('visible'), 600);
+      setTimeout(() => document.getElementById('t3').classList.add('visible'), 1200);
+      setTimeout(() => document.getElementById('t4').classList.add('visible'), 1800);
+      setTimeout(() => document.getElementById('t5').classList.add('visible'), 2400);
+      setTimeout(() => document.getElementById('scrollHint').classList.add('visible'), 3500);
+    }
+
+    renderer.render(scene, camera);
+  }
+
+  animate();
+
+  // Resize
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+})();
+</script>
+
+</body>
+</html>
