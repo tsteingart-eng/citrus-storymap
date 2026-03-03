@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -7,439 +6,191 @@
 <title>A Citrus Labor History of Orange, California</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
-
-- { margin: 0; padding: 0; box-sizing: border-box; }
-
-body {
-background: #1a1408;
-overflow: hidden;
-width: 100vw;
-height: 100vh;
-font-family: ‘Cormorant Garamond’, serif;
-}
-
-#scene-container {
-position: fixed;
-top: 0; left: 0;
-width: 100%; height: 100%;
-z-index: 1;
-}
-
-/* Warm golden overlay */
-#overlay {
-position: fixed;
-top: 0; left: 0;
-width: 100%; height: 100%;
-z-index: 2;
-pointer-events: none;
-background: radial-gradient(ellipse at 50% 30%, transparent 0%, rgba(20, 16, 8, 0.3) 60%, rgba(20, 16, 8, 0.7) 100%);
-}
-
-/* Film grain */
-#grain {
-position: fixed;
-top: -50%; left: -50%;
-width: 200%; height: 200%;
-z-index: 3;
-pointer-events: none;
-opacity: 0.06;
-background-image: url(“data:image/svg+xml,%3Csvg viewBox=‘0 0 256 256’ xmlns=‘http://www.w3.org/2000/svg’%3E%3Cfilter id=‘noise’%3E%3CfeTurbulence type=‘fractalNoise’ baseFrequency=‘0.9’ numOctaves=‘4’ stitchTiles=‘stitch’/%3E%3C/filter%3E%3Crect width=‘100%25’ height=‘100%25’ filter=‘url(%23noise)’/%3E%3C/svg%3E”);
-animation: grainShift 0.5s steps(1) infinite;
-}
-
-@keyframes grainShift {
-0% { transform: translate(0, 0); }
-25% { transform: translate(-2%, -3%); }
-50% { transform: translate(3%, 1%); }
-75% { transform: translate(-1%, 4%); }
-100% { transform: translate(2%, -2%); }
-}
-
-/* Title content */
-#title-container {
-position: fixed;
-top: 0; left: 0;
-width: 100%; height: 100%;
-z-index: 10;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-pointer-events: none;
-}
-
-.title-line {
-color: #f4e8d0;
-text-align: center;
-opacity: 0;
-transform: translateY(30px);
-transition: opacity 2s ease, transform 2s ease;
-text-shadow: 0 2px 40px rgba(0,0,0,0.6);
-}
-
-.title-line.visible {
-opacity: 1;
-transform: translateY(0);
-}
-
-.title-main {
-font-size: clamp(28px, 5vw, 64px);
-font-weight: 300;
-letter-spacing: 0.08em;
-line-height: 1.2;
-margin-bottom: 8px;
-}
-
-.title-main em {
-font-style: italic;
-font-weight: 400;
-}
-
-.title-place {
-font-size: clamp(22px, 3.5vw, 48px);
-font-weight: 300;
-letter-spacing: 0.08em;
-line-height: 1.2;
-margin-bottom: 32px;
-}
-
-.title-divider {
-width: clamp(40px, 8vw, 120px);
-height: 1px;
-background: linear-gradient(90deg, transparent, #c4a35a, transparent);
-margin: 0 auto 28px;
-opacity: 0;
-transform: scaleX(0);
-transition: opacity 2s ease 0.5s, transform 2s ease 0.5s;
-}
-
-.title-divider.visible {
-opacity: 1;
-transform: scaleX(1);
-}
-
-.title-sub {
-font-family: ‘Libre Baskerville’, serif;
-font-size: clamp(12px, 1.6vw, 20px);
-font-weight: 400;
-letter-spacing: 0.25em;
-text-transform: uppercase;
-color: #c4a35a;
-margin-bottom: 48px;
-}
-
-.title-credit {
-font-family: ‘Libre Baskerville’, serif;
-font-size: clamp(9px, 1.1vw, 13px);
-font-weight: 400;
-letter-spacing: 0.18em;
-text-transform: uppercase;
-color: rgba(196, 163, 90, 0.5);
-position: fixed;
-bottom: clamp(20px, 4vh, 48px);
-left: 50%;
-transform: translateX(-50%);
-}
-
-/* Scroll indicator */
-.scroll-hint {
-position: fixed;
-bottom: clamp(50px, 8vh, 90px);
-left: 50%;
-transform: translateX(-50%);
-opacity: 0;
-transition: opacity 2s ease;
-z-index: 10;
-pointer-events: none;
-}
-
-.scroll-hint.visible { opacity: 1; }
-
-.scroll-hint span {
-display: block;
-width: 1px;
-height: 40px;
-background: linear-gradient(180deg, #c4a35a, transparent);
-margin: 0 auto;
-animation: scrollPulse 2s ease-in-out infinite;
-}
-
-@keyframes scrollPulse {
-0%, 100% { opacity: 0.3; transform: scaleY(0.6); }
-50% { opacity: 0.8; transform: scaleY(1); }
-}
-
-/* Vignette bottom */
-#vignette-bottom {
-position: fixed;
-bottom: 0; left: 0;
-width: 100%; height: 30%;
-z-index: 4;
-pointer-events: none;
-background: linear-gradient(0deg, rgba(20, 16, 8, 0.8) 0%, transparent 100%);
-}
-
-/* Vignette top */
-#vignette-top {
-position: fixed;
-top: 0; left: 0;
-width: 100%; height: 20%;
-z-index: 4;
-pointer-events: none;
-background: linear-gradient(180deg, rgba(20, 16, 8, 0.5) 0%, transparent 100%);
-}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#2a4a2a;overflow:hidden;width:100vw;height:100vh;font-family:'Cormorant Garamond',serif}
+  canvas{position:fixed;top:0;left:0;z-index:1}
+  #vb{position:fixed;bottom:0;left:0;width:100%;height:10%;z-index:4;pointer-events:none;background:linear-gradient(0deg,rgba(10,15,10,.25) 0%,transparent 100%)}
+  #vt{position:fixed;top:0;left:0;width:100%;height:20%;z-index:4;pointer-events:none;background:linear-gradient(180deg,rgba(10,20,30,.35) 0%,transparent 100%)}
 </style>
-
 </head>
 <body>
-
-<canvas id="scene-container"></canvas>
-
-<div id="overlay"></div>
-<div id="grain"></div>
-<div id="vignette-bottom"></div>
-<div id="vignette-top"></div>
-
-<div id="title-container">
-  <div class="title-line title-main" id="t1">A Citrus Labor History</div>
-  <div class="title-line title-place" id="t2">of <em>Orange, California</em></div>
-  <div class="title-divider" id="t3"></div>
-  <div class="title-line title-sub" id="t4">A Self-Guided Walking Tour</div>
-  <div class="title-line title-credit" id="t5">Timea Steingart &middot; Chapman University</div>
-</div>
-
-<div class="scroll-hint" id="scrollHint"><span></span></div>
-
+<canvas id="c"></canvas>
+<div id="vb"></div><div id="vt"></div>
+<div id="credit" style="position:fixed;bottom:clamp(10px,2vh,20px);left:50%;transform:translateX(-50%);z-index:10;pointer-events:none;font-family:'Libre Baskerville',serif;font-size:clamp(8px,.85vw,11px);letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.4);text-shadow:0 1px 6px rgba(0,0,0,.6);opacity:0;transition:opacity 2s ease">Chapman University &middot; CUE Scholarly Research Grant</div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-
 <script>
-(function() {
-  // Scene setup
-  const canvas = document.getElementById('scene-container');
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 0.9;
+(function(){
+var R=new THREE.WebGLRenderer({canvas:document.getElementById('c'),antialias:true});
+R.setSize(innerWidth,innerHeight);R.setPixelRatio(Math.min(devicePixelRatio,2));
+R.toneMapping=THREE.ACESFilmicToneMapping;R.toneMappingExposure=1.05;
+var S=new THREE.Scene();
+S.background=new THREE.Color(0x7eaac0);
+S.fog=new THREE.FogExp2(0x8ab8c8,0.0025);
+var cam=new THREE.PerspectiveCamera(45,innerWidth/innerHeight,0.1,600);
+S.add(new THREE.AmbientLight(0x8899aa,0.5));
+var sun=new THREE.DirectionalLight(0xffeecc,2.0);sun.position.set(30,60,20);S.add(sun);
+var fill=new THREE.DirectionalLight(0xffbb77,0.4);fill.position.set(-20,20,-10);S.add(fill);
+S.add(new THREE.HemisphereLight(0x77aacc,0x558833,0.4));
+var cLat=33.7895,cLng=-117.8555,SC=5000;
+function toS(lat,lng){return{x:(lng-cLng)*SC*Math.cos(cLat*Math.PI/180),z:-(lat-cLat)*SC}}
+var ground=new THREE.Mesh(new THREE.PlaneGeometry(400,400),new THREE.MeshLambertMaterial({color:0x5a9944}));
+ground.rotation.x=-Math.PI/2;S.add(ground);
+for(var i=0;i<20;i++){var d=new THREE.Mesh(new THREE.PlaneGeometry(5+Math.random()*10,5+Math.random()*10),new THREE.MeshLambertMaterial({color:0xb8a878}));d.rotation.x=-Math.PI/2;d.position.set((Math.random()-.5)*80,0.01,(Math.random()-.5)*80);S.add(d)}
+var stMat=new THREE.MeshLambertMaterial({color:0xd4c4a0});
+var mainSt=new THREE.MeshLambertMaterial({color:0xddd0b0});
+function addSt(a1,b1,a2,b2,w,m){var p1=toS(a1,b1),p2=toS(a2,b2),dx=p2.x-p1.x,dz=p2.z-p1.z;var len=Math.sqrt(dx*dx+dz*dz);var mesh=new THREE.Mesh(new THREE.BoxGeometry(w||0.6,0.06,len),m||stMat);mesh.position.set(p1.x+dx/2,0.04,p1.z+dz/2);mesh.rotation.y=Math.atan2(dx,dz);S.add(mesh)}
+addSt(33.800,-117.8558,33.782,-117.8558,0.7,mainSt);
+addSt(33.800,-117.8543,33.782,-117.8543,0.6);
+addSt(33.800,-117.8531,33.782,-117.8531,0.7,mainSt);
+addSt(33.800,-117.8519,33.782,-117.8519,0.5);
+addSt(33.800,-117.8570,33.782,-117.8570,0.5);
+addSt(33.800,-117.8580,33.782,-117.8580,0.4);
+addSt(33.7940,-117.863,33.7940,-117.846,0.8,mainSt);
+addSt(33.7925,-117.863,33.7925,-117.846,0.5);
+addSt(33.7910,-117.863,33.7910,-117.846,0.5);
+addSt(33.7895,-117.863,33.7895,-117.846,0.6,mainSt);
+addSt(33.7880,-117.863,33.7880,-117.846,0.6);
+addSt(33.7865,-117.863,33.7865,-117.846,0.5);
+var railCol=new THREE.MeshLambertMaterial({color:0x888888});
+var tieCol=new THREE.MeshLambertMaterial({color:0x5a4028});
+var ballastCol=new THREE.MeshLambertMaterial({color:0x706050});
+function addRail(pts){for(var i=0;i<pts.length-1;i++){var p1=toS(pts[i][0],pts[i][1]),p2=toS(pts[i+1][0],pts[i+1][1]);var dx=p2.x-p1.x,dz=p2.z-p1.z,len=Math.sqrt(dx*dx+dz*dz),ang=Math.atan2(dx,dz);var bed=new THREE.Mesh(new THREE.BoxGeometry(1.0,0.08,len),ballastCol);bed.position.set(p1.x+dx/2,0.04,p1.z+dz/2);bed.rotation.y=ang;S.add(bed);[-0.2,0.2].forEach(function(off){var r=new THREE.Mesh(new THREE.BoxGeometry(0.06,0.12,len),railCol);var nx=Math.cos(ang+Math.PI/2)*off,nz=-Math.sin(ang+Math.PI/2)*off;r.position.set(p1.x+dx/2+nx,0.12,p1.z+dz/2+nz);r.rotation.y=ang;S.add(r)});var tc=Math.floor(len/0.45);for(var t=0;t<tc;t++){var f=t/tc;var tie=new THREE.Mesh(new THREE.BoxGeometry(0.7,0.06,0.12),tieCol);tie.position.set(p1.x+dx*f,0.07,p1.z+dz*f);tie.rotation.y=ang;S.add(tie)}}}
+addRail([[33.806,-117.8594],[33.800,-117.8585],[33.796,-117.8578],[33.792,-117.8572],[33.788,-117.8566],[33.784,-117.8560],[33.780,-117.8554],[33.776,-117.8548]]);
+addRail([[33.792,-117.8572],[33.790,-117.8564],[33.788,-117.8558]]);
+addRail([[33.797,-117.8545],[33.792,-117.8545],[33.787,-117.8545],[33.783,-117.8545]]);
+var brick=new THREE.MeshLambertMaterial({color:0xcc6644}); // warm orange-red brick
+var wood=new THREE.MeshLambertMaterial({color:0xddbb55}); // warm golden
+var roofR=new THREE.MeshLambertMaterial({color:0xaa5533}); // terracotta
+var roofW=new THREE.MeshLambertMaterial({color:0x8a6a35}); // wood shingle
+var roofT=new THREE.MeshLambertMaterial({color:0x999588}); // tin
+var pack=new THREE.MeshLambertMaterial({color:0x998860}); // industrial
+function addB(lat,lng,w,d,h,mat,rf){var p=toS(lat,lng);var m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),mat);m.position.set(p.x,h/2,p.z);S.add(m);if(rf!==false){var roof=new THREE.Mesh(new THREE.BoxGeometry(w+.12,0.12,d+.12),rf||roofW);roof.position.set(p.x,h+.06,p.z);S.add(roof)}return m}
+var trees=[];
+var leafC=[0x228b15,0x2d9a18,0x1e8010,0x35a020,0x1a7512];
+function mkTree(x,z,s){var g=new THREE.Group();var tk=new THREE.Mesh(new THREE.CylinderGeometry(.04*s,.07*s,.9*s,5),new THREE.MeshLambertMaterial({color:0x7a5530}));tk.position.y=.45*s;g.add(tk);var cM=new THREE.MeshLambertMaterial({color:leafC[Math.floor(Math.random()*leafC.length)]});[[0,1.2,0,.65],[.22,1.4,.1,.42],[-.2,1.1,-.14,.48],[.1,1.55,-.1,.32]].forEach(function(v){var m=new THREE.Mesh(new THREE.SphereGeometry(v[3]*s,7,6),cM);m.position.set(v[0]*s,v[1]*s,v[2]*s);g.add(m)});var oM=[new THREE.MeshLambertMaterial({color:0xff8c00}),new THREE.MeshLambertMaterial({color:0xff7700}),new THREE.MeshLambertMaterial({color:0xffaa30})];for(var i=0;i<5+Math.floor(Math.random()*6);i++){var sz=(.06+Math.random()*.05)*s;var o=new THREE.Mesh(new THREE.SphereGeometry(sz,6,6),oM[Math.floor(Math.random()*3)]);var a=Math.random()*Math.PI*2,rd=(.22+Math.random()*.42)*s;o.position.set(Math.cos(a)*rd,(.85+Math.random()*.65)*s,Math.sin(a)*rd);g.add(o)}g.position.set(x,0,z);g.userData={ss:.3+Math.random()*.3,sa:.002,so:Math.random()*Math.PI*2};return g}
+function plantG(lC,gC,r,c){for(var i=0;i<r;i++)for(var j=0;j<c;j++){var p=toS(lC+i*.00022+(Math.random()-.5)*.00005,gC+j*.00022+(Math.random()-.5)*.00005);var t=mkTree(p.x,p.z,.45+Math.random()*.2);S.add(t);trees.push(t)}}
+// *** ORANGE UNION HIGH SCHOOL (1905) — single building by C.B. Bradshaw ***
+// Located at Palm Ave & N. Glassell St (333 N. Glassell). Just one building in 1905.
+// Frame construction, 2-story. The "Twins" not added until 1913.
+addB(33.7895,-117.8531,3,2,2.2,wood,roofW); // Main school building — frame, at Palm & Glassell
 
-  const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0x1a1408);
-  scene.fog = new THREE.FogExp2(0x1a1408, 0.018);
+// === PACKING HOUSES (from 1905 Sanborn Specials) ===
+// Santiago Orange Growers Assn. — large, near railroad west of Cypress
+addB(33.7888,-117.8575,6,4,3,pack,roofT);
+// Ainsworth Lumber & Milling Co. — along railroad
+addB(33.7893,-117.8582,4.5,3,2.5,wood,roofT);
+// Planing Mill — adjacent to Ainsworth
+addB(33.7890,-117.8584,2.5,2,2,wood,roofT);
+// Independent Orange Growers Assn. — south of town near RR
+addB(33.7850,-117.8560,5.5,3.5,2.8,pack,roofT);
+// Parker's E.T. Fruit Packing Ho.
+addB(33.7855,-117.8550,4.5,3,2.5,pack,roofT);
+// Sparrow C.S. Fruit Packing Ho.
+addB(33.7845,-117.8555,4,2.5,2.2,pack,roofT);
+var pp=toS(33.7878,-117.8531);
+var plaza=new THREE.Mesh(new THREE.CylinderGeometry(3,3,0.1,32),new THREE.MeshLambertMaterial({color:0xc8b898}));
+plaza.position.set(pp.x,0.06,pp.z);S.add(plaza);
+var ftn=new THREE.Mesh(new THREE.CylinderGeometry(0.5,0.5,0.5,12),new THREE.MeshLambertMaterial({color:0x6a8a9a}));
+ftn.position.set(pp.x,0.3,pp.z);S.add(ftn);
+for(var i=0;i<14;i++){var a=(i/14)*Math.PI*2;addB(33.7878+Math.sin(a)*.0005,-117.8531+Math.cos(a)*.0005,1+Math.random()*.8,.7+Math.random()*.4,.7+Math.random()*.6,i%3===0?brick:wood)}
+addB(33.7905,-117.8525,1.5,2.5,2.2,brick,roofR);
+addB(33.7900,-117.8530,1.5,2,1.8,brick,roofR);
+addB(33.7935,-117.8530,3,2,1.5,brick,roofR);
+for(var i=0;i<15;i++)addB(33.7930-i*.00025,-117.8560+((i%2)*.0003-.00015),.6+Math.random()*.3,.5+Math.random()*.2,.4+Math.random()*.2,wood);
+for(var i=0;i<45;i++)addB(33.785+Math.random()*.012,-117.858+Math.random()*.009,.6+Math.random()*.8,.5+Math.random()*.5,.35+Math.random()*.5,Math.random()>.3?wood:brick);
+// === 1905 AGRICULTURAL FIELDS — 10-acre farm lots surrounding 40-acre townsite ===
+// Neat citrus rows (organized orchards, not wild)
+plantG(33.797,-117.847,12,15); // East groves
+plantG(33.784,-117.847,10,15); // SE groves
+plantG(33.797,-117.865,12,10); // West groves
+plantG(33.784,-117.865,10,10); // SW groves
+plantG(33.803,-117.861,6,22);  // North groves
 
-  const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 200);
-  camera.position.set(0, 4, 22);
-  camera.lookAt(0, 3, 0);
-
-  // Lighting - warm golden hour
-  const ambientLight = new THREE.AmbientLight(0x2a1f0a, 0.4);
-  scene.add(ambientLight);
-
-  const sunLight = new THREE.DirectionalLight(0xffd090, 1.8);
-  sunLight.position.set(15, 20, 10);
-  sunLight.castShadow = false;
-  scene.add(sunLight);
-
-  const warmFill = new THREE.DirectionalLight(0xff8844, 0.4);
-  warmFill.position.set(-10, 5, -5);
-  scene.add(warmFill);
-
-  const rimLight = new THREE.DirectionalLight(0xffeedd, 0.3);
-  rimLight.position.set(0, 3, 20);
-  scene.add(rimLight);
-
-  // Ground plane
-  const groundGeo = new THREE.PlaneGeometry(200, 200);
-  const groundMat = new THREE.MeshLambertMaterial({ color: 0x2d2210 });
-  const ground = new THREE.Mesh(groundGeo, groundMat);
-  ground.rotation.x = -Math.PI / 2;
-  ground.position.y = 0;
-  scene.add(ground);
-
-  // Dirt rows
-  for (let i = -6; i <= 6; i++) {
-    const rowGeo = new THREE.PlaneGeometry(100, 0.6);
-    const rowMat = new THREE.MeshLambertMaterial({ color: 0x3a2e18 });
-    const row = new THREE.Mesh(rowGeo, rowMat);
-    row.rotation.x = -Math.PI / 2;
-    row.position.set(0, 0.01, i * 5);
-    scene.add(row);
-  }
-
-  // Create orange tree
-  function createTree(x, z, scale) {
-    const group = new THREE.Group();
-
-    // Trunk
-    const trunkGeo = new THREE.CylinderGeometry(0.12 * scale, 0.18 * scale, 2.5 * scale, 8);
-    const trunkMat = new THREE.MeshLambertMaterial({ color: 0x4a3520 });
-    const trunk = new THREE.Mesh(trunkGeo, trunkMat);
-    trunk.position.y = 1.25 * scale;
-    group.add(trunk);
-
-    // Canopy - multiple spheres for organic shape
-    const canopyMat = new THREE.MeshLambertMaterial({ color: 0x1a3a12 });
-    const canopyPositions = [
-      [0, 3.2, 0, 1.6],
-      [0.7, 3.5, 0.3, 1.1],
-      [-0.5, 3.0, -0.4, 1.2],
-      [0.3, 3.8, -0.5, 0.9],
-      [-0.6, 3.4, 0.5, 1.0],
-      [0, 2.6, 0, 1.3],
-    ];
-
-    canopyPositions.forEach(([cx, cy, cz, cr]) => {
-      const geo = new THREE.SphereGeometry(cr * scale, 12, 10);
-      const mesh = new THREE.Mesh(geo, canopyMat);
-      mesh.position.set(cx * scale, cy * scale, cz * scale);
-      group.add(mesh);
-    });
-
-    // Darker inner leaves for depth
-    const darkLeafMat = new THREE.MeshLambertMaterial({ color: 0x0f2a0a });
-    const innerGeo = new THREE.SphereGeometry(1.1 * scale, 8, 8);
-    const innerMesh = new THREE.Mesh(innerGeo, darkLeafMat);
-    innerMesh.position.set(0, 3.0 * scale, 0);
-    group.add(innerMesh);
-
-    // Oranges
-    const orangeMat = new THREE.MeshLambertMaterial({ color: 0xe8871e });
-    const orangeHighlight = new THREE.MeshLambertMaterial({ color: 0xf09928 });
-    const orangeCount = Math.floor(12 + Math.random() * 10);
-    for (let i = 0; i < orangeCount; i++) {
-      const size = (0.14 + Math.random() * 0.08) * scale;
-      const oGeo = new THREE.SphereGeometry(size, 10, 10);
-      const mat = Math.random() > 0.3 ? orangeMat : orangeHighlight;
-      const orange = new THREE.Mesh(oGeo, mat);
-      const angle = Math.random() * Math.PI * 2;
-      const radius = (0.5 + Math.random() * 1.1) * scale;
-      const height = (2.2 + Math.random() * 1.8) * scale;
-      orange.position.set(
-        Math.cos(angle) * radius,
-        height,
-        Math.sin(angle) * radius
-      );
-      group.add(orange);
-    }
-
-    group.position.set(x, 0, z);
-
-    // Gentle sway
-    group.userData = {
-      swaySpeed: 0.3 + Math.random() * 0.4,
-      swayAmount: 0.003 + Math.random() * 0.004,
-      swayOffset: Math.random() * Math.PI * 2
-    };
-
-    return group;
-  }
-
-  // Plant grove - rows of trees receding into distance
-  const trees = [];
-  const rowSpacing = 5;
-  const treeSpacing = 4.5;
-
-  for (let row = -3; row <= 3; row++) {
-    for (let col = -2; col <= 8; col++) {
-      // Leave a clearing in the center for title visibility
-      const x = row * rowSpacing + (Math.random() - 0.5) * 1.2;
-      const z = -col * treeSpacing + (Math.random() - 0.5) * 1.0;
-
-      // Skip trees too close to center of view
-      if (Math.abs(x) < 3.5 && col >= 0 && col <= 3) continue;
-
-      const scale = 0.85 + Math.random() * 0.35;
-      const tree = createTree(x, z, scale);
-      scene.add(tree);
-      trees.push(tree);
-    }
-  }
-
-  // Fallen oranges on ground
-  const fallenOrangeMat = new THREE.MeshLambertMaterial({ color: 0xcc7015 });
-  for (let i = 0; i < 40; i++) {
-    const geo = new THREE.SphereGeometry(0.12 + Math.random() * 0.07, 8, 8);
-    const orange = new THREE.Mesh(geo, fallenOrangeMat);
-    orange.position.set(
-      (Math.random() - 0.5) * 40,
-      0.06,
-      (Math.random() - 0.5) * 30
-    );
-    scene.add(orange);
-  }
-
-  // Floating dust / pollen particles
-  const particleCount = 120;
-  const particleGeo = new THREE.BufferGeometry();
-  const positions = new Float32Array(particleCount * 3);
-  for (let i = 0; i < particleCount; i++) {
-    positions[i * 3] = (Math.random() - 0.5) * 40;
-    positions[i * 3 + 1] = 1 + Math.random() * 8;
-    positions[i * 3 + 2] = (Math.random() - 0.5) * 30;
-  }
-  particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-  const particleMat = new THREE.PointsMaterial({
-    color: 0xffd080,
-    size: 0.06,
-    transparent: true,
-    opacity: 0.4
-  });
-  const particles = new THREE.Points(particleGeo, particleMat);
-  scene.add(particles);
-
-  // Animate
-  let time = 0;
-  let titleShown = false;
-
-  function animate() {
-    requestAnimationFrame(animate);
-    time += 0.008;
-
-    // Slow camera drift forward through the grove
-    camera.position.z = 22 - time * 0.3;
-    camera.position.x = Math.sin(time * 0.15) * 0.8;
-    camera.position.y = 4 + Math.sin(time * 0.1) * 0.2;
-    camera.lookAt(Math.sin(time * 0.08) * 0.3, 3, camera.position.z - 15);
-
-    // Tree sway
-    trees.forEach(tree => {
-      const d = tree.userData;
-      tree.rotation.z = Math.sin(time * d.swaySpeed + d.swayOffset) * d.swayAmount;
-      tree.rotation.x = Math.sin(time * d.swaySpeed * 0.7 + d.swayOffset + 1) * d.swayAmount * 0.5;
-    });
-
-    // Particle drift
-    const posArr = particles.geometry.attributes.position.array;
-    for (let i = 0; i < particleCount; i++) {
-      posArr[i * 3] += Math.sin(time + i) * 0.003;
-      posArr[i * 3 + 1] += Math.sin(time * 0.5 + i * 0.3) * 0.002;
-      posArr[i * 3 + 2] += Math.cos(time * 0.7 + i * 0.5) * 0.002;
-    }
-    particles.geometry.attributes.position.needsUpdate = true;
-
-    // Reveal title after 1.5s
-    if (time > 0.3 && !titleShown) {
-      titleShown = true;
-      setTimeout(() => document.getElementById('t1').classList.add('visible'), 0);
-      setTimeout(() => document.getElementById('t2').classList.add('visible'), 600);
-      setTimeout(() => document.getElementById('t3').classList.add('visible'), 1200);
-      setTimeout(() => document.getElementById('t4').classList.add('visible'), 1800);
-      setTimeout(() => document.getElementById('t5').classList.add('visible'), 2400);
-      setTimeout(() => document.getElementById('scrollHint').classList.add('visible'), 3500);
-    }
-
-    renderer.render(scene, camera);
-  }
-
-  animate();
-
-  // Resize
-  window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-  });
+// Open agricultural fields (bare earth/plowed — tan patches between groves)
+var fieldMat=new THREE.MeshLambertMaterial({color:0xc4aa70}); // dry field
+var plowedMat=new THREE.MeshLambertMaterial({color:0xb09858}); // plowed rows
+// East fields
+var ef1=new THREE.Mesh(new THREE.PlaneGeometry(25,18),fieldMat);
+ef1.rotation.x=-Math.PI/2;var efp=toS(33.793,-117.845);ef1.position.set(efp.x,0.02,efp.z);S.add(ef1);
+// West fields
+var wf1=new THREE.Mesh(new THREE.PlaneGeometry(20,18),fieldMat);
+wf1.rotation.x=-Math.PI/2;var wfp=toS(33.793,-117.866);wf1.position.set(wfp.x,0.02,wfp.z);S.add(wf1);
+// South fields
+var sf1=new THREE.Mesh(new THREE.PlaneGeometry(30,12),plowedMat);
+sf1.rotation.x=-Math.PI/2;var sfp=toS(33.780,-117.855);sf1.position.set(sfp.x,0.02,sfp.z);S.add(sf1);
+// North open field
+var nf1=new THREE.Mesh(new THREE.PlaneGeometry(18,10),fieldMat);
+nf1.rotation.x=-Math.PI/2;var nfp=toS(33.805,-117.854);nf1.position.set(nfp.x,0.02,nfp.z);S.add(nf1);
+// Plowed furrow lines in south field
+for(var fi=0;fi<20;fi++){
+  var furrow=new THREE.Mesh(new THREE.BoxGeometry(28,0.02,0.15),new THREE.MeshLambertMaterial({color:0x9a8048}));
+  furrow.position.set(sfp.x,0.03,sfp.z-5+fi*.55);S.add(furrow);
+}
+// Walnut grove NE (walnuts were also common)
+for(var wi=0;wi<5;wi++)for(var wj=0;wj<5;wj++){
+  var wp=toS(33.800+wi*.0004,-117.849+wj*.0004);
+  var wt=mkTree(wp.x,wp.z,.5);S.add(wt);trees.push(wt);
+}
+var trainGroup=new THREE.Group();
+var locoB=new THREE.Mesh(new THREE.BoxGeometry(1.2,1,2.5),new THREE.MeshLambertMaterial({color:0x222222}));locoB.position.y=.8;trainGroup.add(locoB);
+var boiler=new THREE.Mesh(new THREE.CylinderGeometry(.42,.42,2.2,8),new THREE.MeshLambertMaterial({color:0x333333}));boiler.rotation.x=Math.PI/2;boiler.position.set(0,.95,-.5);trainGroup.add(boiler);
+var stk=new THREE.Mesh(new THREE.CylinderGeometry(.1,.2,.9,6),new THREE.MeshLambertMaterial({color:0x222222}));stk.position.set(0,1.7,-1.2);trainGroup.add(stk);
+var cab2=new THREE.Mesh(new THREE.BoxGeometry(1.1,.9,1.1),new THREE.MeshLambertMaterial({color:0x882020}));cab2.position.set(0,1.25,.8);trainGroup.add(cab2);
+var cowc=new THREE.Mesh(new THREE.BoxGeometry(1.1,.25,.4),new THREE.MeshLambertMaterial({color:0x222222}));cowc.position.set(0,.3,-1.5);trainGroup.add(cowc);
+for(var i=0;i<3;i++){[-0.55,0.55].forEach(function(side){var w=new THREE.Mesh(new THREE.CylinderGeometry(.22,.22,.08,8),new THREE.MeshLambertMaterial({color:0x444444}));w.rotation.z=Math.PI/2;w.position.set(side,.28,-1+i);trainGroup.add(w)})}
+for(var c=0;c<3;c++){var car=new THREE.Mesh(new THREE.BoxGeometry(1.1,.85,2.2),new THREE.MeshLambertMaterial({color:[0x7a5530,0x6a4525,0x5a6540][c]}));car.position.set(0,.72,2.2+c*2.8);trainGroup.add(car);for(var cr=0;cr<3;cr++){var crate=new THREE.Mesh(new THREE.BoxGeometry(.35,.25,.4),new THREE.MeshLambertMaterial({color:0xd4a040}));crate.position.set(-.3+cr*.3,1.25,2.2+c*2.8+(Math.random()-.5)*.5);trainGroup.add(crate)}}
+S.add(trainGroup);
+var tP1=toS(33.806,-117.8594),tP2=toS(33.776,-117.8548);
+var tDx=tP2.x-tP1.x,tDz=tP2.z-tP1.z;
+trainGroup.rotation.y=Math.atan2(tDx,tDz);
+var smokeParts=[];
+for(var i=0;i<15;i++){var sm=new THREE.Mesh(new THREE.SphereGeometry(.18+Math.random()*.15,5,5),new THREE.MeshBasicMaterial({color:0xbbbbbb,transparent:true,opacity:.35}));sm.visible=false;S.add(sm);smokeParts.push({mesh:sm,life:0,vx:0,vy:0,vz:0})}
+var smokeIdx=0;
+// (Carriages removed for historical accuracy)
+var people=[];
+var skinT=[0xd4a574,0xc49464,0x8b6b4a,0xa07850,0xb08860];
+var clothC=[0x4a5a6a,0x6a4a3a,0x3a4a3a,0x5a4a5a,0x7a6a4a,0x3a3a5a,0x8a7a5a,0xc4a870,0x5a6a4a,0x8a5a3a];
+function mkPerson(x,z,cc,sc){var g=new THREE.Group();var bM=new THREE.MeshLambertMaterial({color:cc||clothC[Math.floor(Math.random()*clothC.length)]});var sM=new THREE.MeshLambertMaterial({color:sc||skinT[Math.floor(Math.random()*skinT.length)]});var body=new THREE.Mesh(new THREE.CylinderGeometry(.06,.05,.3,5),bM);body.position.set(0,.3,0);g.add(body);var head=new THREE.Mesh(new THREE.SphereGeometry(.055,6,5),sM);head.position.set(0,.49,0);g.add(head);var hat=new THREE.Mesh(new THREE.CylinderGeometry(.09,.09,.025,6),bM);hat.position.set(0,.545,0);g.add(hat);var lM=new THREE.MeshLambertMaterial({color:0x3a3530});var l1=new THREE.Mesh(new THREE.CylinderGeometry(.022,.022,.18,4),lM);l1.position.set(.025,.09,0);g.add(l1);var l2=new THREE.Mesh(new THREE.CylinderGeometry(.022,.022,.18,4),lM);l2.position.set(-.025,.09,0);g.add(l2);g.position.set(x,0,z);return g}
+function addWalker(la1,ln1,la2,ln2){var p1=toS(la1,ln1),p2=toS(la2,ln2);var person=mkPerson(p1.x,p1.z);S.add(person);var dx=p2.x-p1.x,dz=p2.z-p1.z;person.rotation.y=Math.atan2(dx,dz);people.push({mesh:person,p1:p1,p2:p2,dx:dx,dz:dz,speed:.2+Math.random()*.25,offset:Math.random(),type:'walk'})}
+for(var i=0;i<8;i++)addWalker(33.7940,-117.857+i*.0012,33.7940,-117.854+i*.0012);
+for(var i=0;i<6;i++)addWalker(33.791+i*.0008,-117.8531,33.789+i*.0008,-117.8531);
+for(var i=0;i<6;i++)addWalker(33.791+i*.0008,-117.8558,33.789+i*.0008,-117.8558);
+for(var i=0;i<10;i++){var a=Math.random()*Math.PI*2,r=.0006;addWalker(33.7878+Math.cos(a)*r,-117.8531+Math.sin(a)*r,33.7878+Math.cos(a+.5)*r,-117.8531+Math.sin(a+.5)*r)}
+for(var i=0;i<6;i++)addWalker(33.7886+Math.random()*.0006,-117.8578+Math.random()*.0004,33.7890+Math.random()*.0006,-117.8572+Math.random()*.0004);
+for(var i=0;i<5;i++)addWalker(33.7940,-117.853+i*.001,33.7940,-117.852+i*.001);
+for(var i=0;i<4;i++)addWalker(33.7895,-117.856+i*.001,33.7895,-117.854+i*.001);
+for(var i=0;i<3;i++)addWalker(33.7880,-117.855+i*.0012,33.7880,-117.853+i*.0012);
+function addPicker(lat,lng){var p=toS(lat,lng);var person=mkPerson(p.x,p.z,0xc4a870);var bag=new THREE.Mesh(new THREE.SphereGeometry(.07,5,5),new THREE.MeshLambertMaterial({color:0x8a7a50}));bag.position.set(.1,.22,0);person.add(bag);S.add(person);people.push({mesh:person,p1:p,p2:{x:p.x+(Math.random()-.5)*2,z:p.z+(Math.random()-.5)*2},dx:(Math.random()-.5)*2,dz:(Math.random()-.5)*2,speed:.06+Math.random()*.08,offset:Math.random(),type:'pick'})}
+for(var i=0;i<14;i++)addPicker(33.796+Math.random()*.006,-117.848+Math.random()*.004);
+for(var i=0;i<10;i++)addPicker(33.797+Math.random()*.005,-117.864+Math.random()*.003);
+var dogData=[];
+function mkDog(lat,lng){var g=new THREE.Group();var dM=new THREE.MeshLambertMaterial({color:[0x9a7a40,0x6a4a20,0xd4b060,0x4a4040][Math.floor(Math.random()*4)]});var db=new THREE.Mesh(new THREE.BoxGeometry(.12,.1,.28),dM);db.position.set(0,.16,0);g.add(db);var dh=new THREE.Mesh(new THREE.BoxGeometry(.09,.09,.12),dM);dh.position.set(0,.2,-.17);g.add(dh);for(var l=0;l<4;l++){var dl=new THREE.Mesh(new THREE.CylinderGeometry(.018,.018,.12,3),dM);dl.position.set(l<2?-.04:.04,.055,l%2===0?-.1:.1);g.add(dl)}var tail=new THREE.Mesh(new THREE.CylinderGeometry(.012,.006,.14,3),dM);tail.position.set(0,.22,.16);tail.rotation.x=-.5;g.add(tail);var p=toS(lat,lng);g.position.set(p.x,0,p.z);S.add(g);return g}
+for(var i=0;i<6;i++){var dlat=33.787+Math.random()*.008,dlng=-117.857+Math.random()*.006;var dp=toS(dlat,dlng);dogData.push({mesh:mkDog(dlat,dlng),cx:dp.x,cz:dp.z,speed:.4+Math.random()*.6,radius:1+Math.random()*3,offset:Math.random()*Math.PI*2})}
+var clouds=[];
+for(var i=0;i<12;i++){var cl=new THREE.Mesh(new THREE.PlaneGeometry(10+Math.random()*18,5+Math.random()*10),new THREE.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:.18}));cl.rotation.x=-Math.PI/2;cl.position.set((Math.random()-.5)*180,32+Math.random()*15,(Math.random()-.5)*180);S.add(cl);clouds.push(cl)}
+var time=0,phase=0;
+function animate(){
+requestAnimationFrame(animate);
+time+=.011;
+var cA=-.2+time*.06;var desc=Math.min(time*2.5,20);
+cam.position.x=Math.sin(cA)*(65-desc*.4)*.35;
+cam.position.z=Math.cos(cA)*(65-desc*.4)*.55+5;
+cam.position.y=70-desc;cam.lookAt(0,0,-3);
+for(var i=0;i<trees.length;i++){var t=trees[i];t.rotation.z=Math.sin(time*t.userData.ss+t.userData.so)*t.userData.sa}
+var tFrac=Math.sin(time*.12)*.5+.5;
+trainGroup.position.set(tP1.x+tDx*tFrac,0,tP1.z+tDz*tFrac);
+if(Math.floor(time*6)%2===0){var sp=smokeParts[smokeIdx%smokeParts.length];sp.mesh.visible=true;sp.life=1;sp.mesh.position.set(trainGroup.position.x,2.2,trainGroup.position.z);sp.vx=(Math.random()-.5)*.015;sp.vy=.035+Math.random()*.02;sp.vz=(Math.random()-.5)*.015;smokeIdx++}
+for(var i=0;i<smokeParts.length;i++){var sp=smokeParts[i];if(sp.life>0){sp.life-=.006;sp.mesh.position.x+=sp.vx;sp.mesh.position.y+=sp.vy;sp.mesh.position.z+=sp.vz;sp.mesh.material.opacity=sp.life*.35;sp.mesh.scale.setScalar(1+(1-sp.life)*2.5);if(sp.life<=0)sp.mesh.visible=false}}
+// People animation
+for(var i=0;i<people.length;i++){var p=people[i];var t2=(time*p.speed+p.offset)%2;var f=t2<1?t2:2-t2;p.mesh.position.x=p.p1.x+p.dx*f;p.mesh.position.z=p.p1.z+p.dz*f;if(p.type==='pick'){p.mesh.position.y=Math.abs(Math.sin(time*p.speed*3))*.08}else{p.mesh.position.y=Math.abs(Math.sin(time*p.speed*6))*.02}}
+for(var i=0;i<dogData.length;i++){var d=dogData[i];var a=time*d.speed+d.offset;d.mesh.position.x=d.cx+Math.sin(a)*d.radius;d.mesh.position.z=d.cz+Math.cos(a)*d.radius;d.mesh.rotation.y=a+Math.PI/2;if(d.mesh.children[4])d.mesh.children[4].rotation.z=Math.sin(time*8)*.3}
+for(var i=0;i<clouds.length;i++){clouds[i].position.x+=.005;if(clouds[i].position.x>100)clouds[i].position.x=-100}
+// Credit fade in
+if(time>3&&phase===0){phase=1;document.getElementById('credit').style.opacity='1'}
+R.render(S,cam)}
+animate();
+addEventListener('resize',function(){cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix();R.setSize(innerWidth,innerHeight)});
 })();
 </script>
-
 </body>
 </html>
